@@ -19,9 +19,7 @@ public:
     S get(P problem) = 0;
 
     // ????
-    // isEmpty
-    // search
-    // replace
+    // replace/update to a new solution
     // full
 };
 #endif //EX4_CACHEMANAGER_H

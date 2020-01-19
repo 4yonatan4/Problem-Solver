@@ -7,8 +7,10 @@
 
 
 #include "CacheManager.h"
+template <class P, class S>
 
-class FileCacheManager : public CacheManager {
+class FileCacheManager : public CacheManager<P,S>
+{
 
 };
 

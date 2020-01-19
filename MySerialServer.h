@@ -8,7 +8,6 @@
 #include "Server.h"
 
 class MySerialServer : public server_side::Server {
-    static void start();
 
     virtual void open(int port, ClientHandler clientHandler);
 
