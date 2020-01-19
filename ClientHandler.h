@@ -8,12 +8,13 @@
 #include <iostream>
 
 using namespace std;
+
 /*
  * ClientHandler interface
  */
 class ClientHandler {
 public:
-    virtual void handleClient(istream in, ostream out) = 0;
+    virtual void handleClient(int client_socket) = 0;
 };
 
 #endif //EX4_CLIENTHANDLER_H

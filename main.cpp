@@ -1,9 +1,14 @@
 #include <iostream>
-#include "StringReverser.h"
+#include "MySerialServer.h"
+#include "MyTestClientHandler.h"
 
-int main()
+int main(int argc, char** argv)
 {
-    Solver<std::string, std::string> *sr = new StringReverser();
-    sr->solve("helloworld");
+    server_side::Server* server = new MySerialServer();
+    CacheManager<string, string>* cacheManager = new FileCacheManager<string>();
+    Solver<string, string>* solver = new StringReverser();
+    ClientHandler* clientHandler = new MyTestClientHandler(solver, cacheManager);
+    int port = stoi(argv[1]);
+    server->open(port, clientHandler);
 }
 

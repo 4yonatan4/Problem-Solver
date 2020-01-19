@@ -3,16 +3,13 @@
 //
 
 #include "StringReverser.h"
-#include <iostream>
 
-std:: string StringReverser::solve(std::string problem)
-{
+
+std::string StringReverser::solve(std::string problem) {
     int i;
     int size = problem.length();
-    for (i=0; i < size/2; i++ )
-    {
-        std::swap(problem[i], problem[size - i - 1]);
+    for (i = 0; i < ((size - 2) / 2); i++) {
+        std::swap(problem[i], problem[size - i - 3]);
     }
-    std::cout<< problem<<std::endl;
-
+    return problem;
 }

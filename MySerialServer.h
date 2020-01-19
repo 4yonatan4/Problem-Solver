@@ -9,9 +9,11 @@
 
 class MySerialServer : public server_side::Server {
 
-    virtual void open(int port, ClientHandler clientHandler);
+    virtual void open(int port, ClientHandler* clientHandler);
 
     virtual void stop();
+
+    static int openServer(int port, ClientHandler* clientHandler);
 };
 
 

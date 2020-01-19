@@ -5,7 +5,6 @@
 #ifndef EX4_SOLVER_H
 #define EX4_SOLVER_H
 
-#include <string.h>
 template <class P, class S>
 class Solver
 {

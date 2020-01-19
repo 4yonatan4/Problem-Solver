@@ -6,11 +6,11 @@
 #define EX4_STRINGREVERSER_H
 #include <string>
 #include "Solver.h"
+
 class StringReverser : public Solver<std::string,std::string>
 {
 public:
     std::string solve(std::string problem) override;
-
 };
 
 

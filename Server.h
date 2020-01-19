@@ -8,12 +8,14 @@
 /*
  * Server interface
  */
-#include "ClientHandler.h"
+
+#include "MyTestClientHandler.h"
+
 
 namespace server_side {
     class Server {
     public:
-        virtual void open(int port, ClientHandler clientHandler) = 0;
+        virtual void open(int port, ClientHandler* clientHandler) = 0;
 
         virtual void stop() = 0;
     };
