@@ -3,7 +3,7 @@
 
 int main()
 {
-    StringReverser *sr = new StringReverser();
+    Solver<std::string, std::string> *sr = new StringReverser();
     sr->solve("helloworld");
 }
 
