@@ -12,19 +12,19 @@
 
 static bool run = true;
 
-void MySerialServer::open(int port, ClientHandler* clientHandler){
+void MySerialServer::open(int port, ClientHandler *clientHandler) {
     // open a new thread and listen to client
     // make it at loop
-    thread serverThread(MySerialServer::openServer,port, clientHandler);
+    thread serverThread(MySerialServer::openServer, port, clientHandler);
     serverThread.join();
 }
 
-void MySerialServer::stop(){
+void MySerialServer::stop() {
     run = false;
 }
 
-int MySerialServer::openServer(int port, ClientHandler* clientHandler){
-    mutex m;
+int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
+    int opt = 1;
     //create socket
     int socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (socketfd == -1) {
@@ -32,6 +32,17 @@ int MySerialServer::openServer(int port, ClientHandler* clientHandler){
         std::cerr << "Could not create a socket" << std::endl;
         return -1;
     }
+
+    struct timeval tv;
+    tv.tv_sec = 20;
+    // Forcefully attaching socket
+    if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO,
+                   &tv, sizeof(tv))) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+
+
     //bind socket to IP address
     // we first need to create the sockaddr obj.
     sockaddr_in address; //in means IP4
@@ -51,10 +62,8 @@ int MySerialServer::openServer(int port, ClientHandler* clientHandler){
     } else {
         std::cout << "Server is now listening ..." << std::endl;
     }
-    while(run){
-//        struct timeval tv;
-//        tv.tv_sec = 5;
-//        setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+    while (run) {
+
 
         // accepting a client
         int client_socket = accept(socketfd, (struct sockaddr *) &address,
@@ -64,9 +73,7 @@ int MySerialServer::openServer(int port, ClientHandler* clientHandler){
             std::cerr << "Error accepting client" << std::endl;
             return -4;
         }
-        m.lock();
         clientHandler->handleClient(client_socket);
-        m.unlock();
         close(socketfd); //closing the listening socket
     }
 }
