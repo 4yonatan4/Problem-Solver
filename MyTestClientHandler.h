@@ -17,6 +17,7 @@
 #include <netinet/in.h>
 #include <thread>
 #include <string.h>
+#include <mutex>
 
 using namespace std;
 
@@ -37,7 +38,13 @@ public:
     void handleClient(int client_socket) override {
         char buffer[1024];
         int valread = read(client_socket, buffer, 1024);
-        while (strcmp(buffer, "end\r\n") != 0) {
+        while (strcmp(buffer, "end") != 0) {
+            for (int i = 0; i < 1024; i++){
+                if (buffer[i] == '\r'){
+                    buffer[i] = '\0';
+                    break;
+                }
+            }
             // search the solution in the cache
             string problem(buffer);
             string solution;
@@ -49,6 +56,7 @@ public:
                 fflush(stdout);
             } else {
                 solution = solver->solve(problem);
+                solution += "\r\n";
                 cacheManager->save(problem, solution);
                 const char *sol = solution.c_str();
                 send(client_socket , sol , strlen(sol), 0);

@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <thread>
+#include <mutex>
 
 static bool run = true;
 
@@ -23,6 +24,7 @@ void MySerialServer::stop(){
 }
 
 int MySerialServer::openServer(int port, ClientHandler* clientHandler){
+    mutex m;
     //create socket
     int socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (socketfd == -1) {
@@ -62,8 +64,9 @@ int MySerialServer::openServer(int port, ClientHandler* clientHandler){
             std::cerr << "Error accepting client" << std::endl;
             return -4;
         }
+        m.lock();
         clientHandler->handleClient(client_socket);
+        m.unlock();
         close(socketfd); //closing the listening socket
     }
-
 }
