@@ -4,7 +4,9 @@
 
 #ifndef EX4_SOLVER_H
 #define EX4_SOLVER_H
-
+//
+//Solver interface
+//
 template <class P, class S>
 class Solver
 {

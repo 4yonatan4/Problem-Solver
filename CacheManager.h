@@ -8,13 +8,16 @@
  * Cache Manager interface
  */
 template <class P, class S>
-class CacheManager{
+class CacheManager
+{
 public:
     // contain
     // get problem and return if we already got the solution
-    virtual bool contain (P problem) = 0;
+    virtual bool contain(P problem) = 0;
+
     // save solution to a specific problem
     virtual void save(P problem, S solution) = 0;
+
     // get
     virtual S get(P problem) = 0;
 };
