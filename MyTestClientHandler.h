@@ -39,8 +39,10 @@ public:
         char buffer[1024];
         int valread = read(client_socket, buffer, 1024);
         while (strcmp(buffer, "end") != 0) {
-            for (int i = 0; i < 1024; i++){
-                if (buffer[i] == '\r'){
+            for (int i = 0; i < 1024; i++)
+            {
+                if (buffer[i] == '\r')
+                {
                     buffer[i] = '\0';
                     break;
                 }

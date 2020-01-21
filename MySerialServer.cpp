@@ -41,8 +41,6 @@ int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
         perror("setsockopt");
         exit(EXIT_FAILURE);
     }
-
-
     //bind socket to IP address
     // we first need to create the sockaddr obj.
     sockaddr_in address; //in means IP4
