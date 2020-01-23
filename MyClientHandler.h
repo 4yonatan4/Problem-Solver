@@ -26,7 +26,7 @@ public:
     Solver<string, string> *solver;
     CacheManager<string, string> *cacheManager;
 
-    MyClientHandler(Solver *solver1, CacheManager<string, string> *cacheManager1)
+    MyClientHandler(Solver<string,string>* solver1, CacheManager<string, string> *cacheManager1)
     {
         this->solver = solver1;
         this->cacheManager = cacheManager1;
@@ -52,7 +52,7 @@ public:
             line += buffer[i];
         }
         int rows = counter - 3;
-        string str = solver->solve(matrix)
+        string str = solver->solve(matrix);
 
 
 //            int valread = read(client_socket, buffer, 1048);

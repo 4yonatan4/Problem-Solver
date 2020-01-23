@@ -11,14 +11,13 @@
 #include <vector>
 
 using namespace std;
-class MatrixSolver : public Solver<vector<string>, string>
+class MatrixSolver : public Solver<string, string>
 {
+    Searcher<Point>* searcher;
 public:
-    vector<string> matrix;
-    int rows;
-    Searcher<vector<string>> searcher
-    MatrixSolver(Searcher s );
-
+   //constructor
+    MatrixSolver(Searcher<Point>* searcher){this->searcher = searcher;};
+    string  solve(vector<string> matrix, int rows);
 };
 
 

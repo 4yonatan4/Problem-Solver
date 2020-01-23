@@ -12,7 +12,7 @@ class AbstractSearcher : public Searcher<T> {
 protected:
     int* numOfNodesEvaluated;
 public:
-    virtual Solution<T> search(Searchable<T> searchable) = 0;
+    virtual Solution<T>*search(Searchable<T>* searchable) = 0;
 
     virtual int getNumOfNodesEvaluated(){
         return numOfNodesEvaluated;
