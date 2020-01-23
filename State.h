@@ -11,12 +11,18 @@
 template<class T>
 class State {
 public:
-    // will be Point in matrix
     T state;
     double value;
     double cost = value;
     State<T> *cameFrom;
     std::string nextMove;
+//    explicit State(Point &point)
+//    {
+//        this->state = point;
+//    }
+
+// will be Point in matrix
+
 
     bool equals(State<T> &other) {
         return ((this->point.getX() == other.point.getX()) && (this->point.getY() == other.point.getY()));

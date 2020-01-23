@@ -14,7 +14,7 @@ protected:
 public:
     virtual Solution<T>*search(Searchable<T>* searchable) = 0;
 
-    virtual int getNumOfNodesEvaluated(){
+    virtual int* getNumOfNodesEvaluated(){
         return numOfNodesEvaluated;
     }
 };

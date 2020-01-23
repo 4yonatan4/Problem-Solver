@@ -11,6 +11,6 @@
 template <class T>
 class Searcher{
     virtual Solution<T>* search(Searchable<T>* searchable) = 0;
-    virtual int getNumOfNodesEvaluated() = 0;
+    virtual int * getNumOfNodesEvaluated() = 0;
 };
 #endif //EX4_SEARCHER_H

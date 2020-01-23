@@ -6,22 +6,22 @@
 
 using namespace std;
 
-Point::Point(double x, double y) : x(x), y(y)
+Point::Point(int x, int y) : x(x), y(y)
 {
 
 }
 
-double Point::getX() const
+int Point::getX() const
 {
     return x;
 }
 
-double Point::getY() const
+int Point::getY() const
 {
     return y;
 }
 
-double Point::distance(const Point &p) const
+int Point::distance(const Point &p) const
 {
     double distance = y-x;
     return distance;

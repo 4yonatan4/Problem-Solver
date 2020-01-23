@@ -10,27 +10,27 @@ public:
     /**
      * Constructor and destructor
      */
-    Point(double x, double y);
+    Point(int x, int y);
     virtual ~Point();
 
     /**
      * Get the x value
      */
-    double getX() const;
+    int getX() const;
 
     /**
      * Get the y value
      */
-    double getY() const;
+    int getY() const;
 
     /**
      * Return the distance between Points
      */
-    double distance(const Point &p) const;
+    int distance(const Point &p) const;
 
 private:
-    double x;
-    double y;
+    int x;
+    int y;
 };
 
 #endif //EX4_POINT_H
