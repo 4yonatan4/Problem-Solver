@@ -6,55 +6,91 @@
 #define EX4_MYCLIENTHANDLER_H
 
 #include "ClientHandler.h"
-#include "StringReverser.h"
-#include "FileCacheManager.h"
-#include <string>
 #include "MySerialServer.h"
 #include <iostream>
-#include <sys/socket.h>
 #include <string>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <thread>
-#include <mutex>
 #include "State.h"
+#include "MatrixSolver.h"
 #include <vector>
+#include <fstream>
 
 
-#define MAXSIZE = 1024
+
+#define MAXSIZE  5000
 
 using namespace std;
-class myClientHandler : public ClientHandler
+
+class MyClientHandler : public ClientHandler
 {
-    void handleClient(int client_socket)  {
-        char buffer[1024];
-        int valread = read(client_socket, buffer, 1024);
-        string str;
-        vector <vector<State<double>>> matrix;
-        while (strcmp(buffer, "end") != 0)
+public:
+    Solver<string, string> *solver;
+    CacheManager<string, string> *cacheManager;
+
+    MyClientHandler(Solver *solver1, CacheManager<string, string> *cacheManager1)
+    {
+        this->solver = solver1;
+        this->cacheManager = cacheManager1;
+    }
+
+    void handleClient(int client_socket) override
+    {
+        char buffer[MAXSIZE];
+        int valread = read(client_socket, buffer, MAXSIZE);
+        int counter = 0;
+        string line = "";
+        vector<string> matrix;
+        int length = strlen(buffer);
+        for (int i = 0; i < length; i++)
         {
-            for (int i = 0; i < 1024; i++)
+            if (buffer[i] == '\n')
             {
-                if (buffer[i] == '\n')
-                {
-                    buffer[i] = '\0';
-                    break;
-                }
+                matrix.push_back(line);
+                counter++;
+                line = "";
+                continue;
             }
-            string problem(buffer)
-            while (getline(buffer, 1024))
-
-
-                // search the solution in the cache
-            string problem(buffer);
-            string solution;
-            // if in the cache, return the solution
-
-            valread = read(client_socket, buffer, 1024);
+            line += buffer[i];
         }
+        int rows = counter - 3;
+        string str = solver->solve(matrix)
+
+
+//            int valread = read(client_socket, buffer, 1048);
+//            for (char c : buffer)
+//            {
+//                //check if we reached end of line
+//                if (c == '\n')
+//                {
+//                    //if end= break
+//                    if (line == "end")
+//                    {
+//                        break;
+//                    }
+//                    //when we reach end of line push into vector and break, add the counter
+//                    matrix.push_back(line);
+//
+//                    line = "";
+//                    break;
+//                }
+//                line += c;
+
+
+
+//                if (line == "end")
+//                {
+//                    if (cacheManager->contain(matrix[0])) {
+//                        solution = cacheManager->get(problem);
+//                        const char *sol = solution.c_str();
+//                        send(client_socket , sol , strlen(sol), 0);
+//                        fflush(stdout);
+//                    } else {
+//                        solution = solver->solve(problem);
+//                        solution += "\r\n";
+//                        cacheManager->save(problem, solution);
+//                        const char *sol = solution.c_str();
+//                        send(client_socket , sol , strlen(sol), 0);
+//                        fflush(stdout);
     }
 
 };
-
-
 #endif //EX4_MYCLIENTHANDLER_H
