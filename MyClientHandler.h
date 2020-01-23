@@ -49,7 +49,7 @@ public:
                 line = "";
                 continue;
             }
-            if (buffer[i] == ',' || buffer[i] == ' ')
+            if (buffer[i] == ' ')
             {
                 continue;
             }

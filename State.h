@@ -12,14 +12,14 @@ template<class T>
 class State {
 public:
     T state;
-    double value;
-    double cost = value;
+    int value;
+    int cost = value;
     State<T> *cameFrom;
     std::string nextMove;
-//    explicit State(Point &point)
-//    {
-//        this->state = point;
-//    }
+    explicit State(Point &point)
+    {
+        this->state = point;
+    }
 
 // will be Point in matrix
 

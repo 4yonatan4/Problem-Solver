@@ -14,6 +14,7 @@
 #define MAX 50
 
 using namespace std;
+template <class T>
 class MatrixSolver : public Solver<vector<string>*, string>
 {
     Searcher<Point>* searcher;
@@ -26,8 +27,8 @@ public:
 
     string solve(vector<string> matrix)
     {
-        MatrixBuilder* matrixProblemToBuild = new MatrixBuilder(&matrix);
-        return this->searcher->search(theMatrix);
+        MatrixBuilder<Point*>* matrixProblemToBuild = new MatrixBuilder<Point*>(&matrix);
+        return this->searcher->search(matrixProblemToBuild);
     }
 
 
