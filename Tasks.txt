@@ -3,7 +3,7 @@ Tasks
  - CacheManager:
                 update solution
                 how to save file, what is the name of the file?
-                    Solution nameFile: algoName + ???
+
                     Problem
 
  - OA:
@@ -18,3 +18,7 @@ Tasks
  - check the algorithm and make PDF file with the result
 
  - ParallelServer
+
+ T Point*
+ P vector<string>
+ S string

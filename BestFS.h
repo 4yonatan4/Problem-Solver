@@ -19,22 +19,22 @@ template<class T>
 class BestFS : public AbstractSearcher<T> {
 private:
     PriorityQueue<T> *open;
-    set<State<T>> *closed;
+    set<State<T>*> *closed;
 public:
     BestFS<T>() {
         open = new PriorityQueue<T>(this->numOfNodesEvaluated);
-        closed = new set<State<T>>();
+        closed = new set<State<T>*>();
     }
 
-    virtual Solution<T> search(Searchable<T> *searchable);
+    virtual Solution<T>* search(Searchable<T> *searchable);
 
-    Solution<T> backTrace(State<T> *goalState, State<T> *initState);
+    Solution<T>* backTrace(State<T> *goalState, State<T> *initState);
 
-    string checkDirection(State<Point> *s, State<Point> *cameFrom);
+    string checkDirection(State<Point*> *s, State<Point*> *cameFrom);
 };
 
 template<class T>
-Solution<T> BestFS<T>::search(Searchable<T> *searchable) {
+Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
     open->push(searchable->getInitialState());
     // while open queue isn't empty
     while (!open->empty()) {
@@ -69,7 +69,7 @@ Solution<T> BestFS<T>::search(Searchable<T> *searchable) {
 }
 
 template<class T>
-Solution<T> BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
+Solution<T>* BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
     // create empty Solution - vector of states
     auto *solution = new Solution<string>();
     // start from the goal, and check his cameFrom
@@ -90,22 +90,22 @@ Solution<T> BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
 }
 
 template<>
-string BestFS<Point>::checkDirection(State<Point> *s1, State<Point> *cameFrom1) {
-    Point s = s1->state;
-    Point cameFrom = cameFrom1->state;
+string BestFS<Point*>::checkDirection(State<Point*> *s1, State<Point*> *cameFrom1) {
+    Point* s = s1->state;
+    Point* cameFrom = cameFrom1->state;
     // x values equals
-    if (s.getX() == cameFrom.getX()) {
+    if (s->getX() == cameFrom->getX()) {
         // s lower then cameFrom --> go UP
-        if (s.getY() < cameFrom.getY()) {
+        if (s->getY() < cameFrom->getY()) {
             return "Up";
         } else { // cameFrom lower then s --> go DOWN
             return "Down";
         }
     }
     // y values equals
-    if (s.getY() == cameFrom.getY()) {
+    if (s->getY() == cameFrom->getY()) {
         // s left to cameFrom --> go LEFT
-        if (s.getX() < cameFrom.getX()) {
+        if (s->getX() < cameFrom->getX()) {
             return "Left";
         } else { // cameFrom left to s --> go RIGHT
             return "Right";

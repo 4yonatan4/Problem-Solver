@@ -20,7 +20,7 @@ public:
     virtual ~Solution(){
         delete vectorOfStates;
     };
-    std::vector<State<T>>* getVectorOfStates (){
+    std::vector<State<T>*>* getVectorOfStates (){
         return vectorOfStates;
     }
     // print the solution

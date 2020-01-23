@@ -23,10 +23,10 @@ using namespace std;
 class MyClientHandler : public ClientHandler
 {
 public:
-    Solver<string, string> *solver;
-    CacheManager<string, string> *cacheManager;
+    Solver<vector<string>*, string> *solver;
+    CacheManager<vector<string>*, string> *cacheManager;
 
-    MyClientHandler(Solver<string,string>* solver1, CacheManager<string, string> *cacheManager1)
+    MyClientHandler(Solver<vector<string>*,string>* solver1, CacheManager<vector<string>*, string> *cacheManager1)
     {
         this->solver = solver1;
         this->cacheManager = cacheManager1;
@@ -53,43 +53,7 @@ public:
         }
         int rows = counter - 3;
         string str = solver->solve(matrix);
-
-
-//            int valread = read(client_socket, buffer, 1048);
-//            for (char c : buffer)
-//            {
-//                //check if we reached end of line
-//                if (c == '\n')
-//                {
-//                    //if end= break
-//                    if (line == "end")
-//                    {
-//                        break;
-//                    }
-//                    //when we reach end of line push into vector and break, add the counter
-//                    matrix.push_back(line);
-//
-//                    line = "";
-//                    break;
-//                }
-//                line += c;
-
-
-
-//                if (line == "end")
-//                {
-//                    if (cacheManager->contain(matrix[0])) {
-//                        solution = cacheManager->get(problem);
-//                        const char *sol = solution.c_str();
-//                        send(client_socket , sol , strlen(sol), 0);
-//                        fflush(stdout);
-//                    } else {
-//                        solution = solver->solve(problem);
-//                        solution += "\r\n";
-//                        cacheManager->save(problem, solution);
-//                        const char *sol = solution.c_str();
-//                        send(client_socket , sol , strlen(sol), 0);
-//                        fflush(stdout);
+        //fflush(stdout);
     }
 
 };

@@ -13,15 +13,15 @@ private:
     State<T>* start;
     State<T>* end;
 public:
-    virtual  State<T> getInitialState() = 0;
-    virtual bool isGoalState(State<T> state);
-    virtual vector<State<T>> getAllPossibleStates(State<T> state) = 0;
+    virtual  State<T>* getInitialState() = 0;
+    virtual bool isGoalState(State<T>* state);
+    virtual vector<State<T>*>* getAllPossibleStates(State<T>* state) = 0;
     virtual string toString() = 0;
 };
 
 template <class T>
-bool AbstractSearchable<T>::isGoalState(State<T> state) {
-    return start.equals(state);
+bool AbstractSearchable<T>::isGoalState(State<T>* state) {
+    return start->equals(state);
 }
 
 #endif //EX4_ABSTRACTSEARCHABLE_H
