@@ -8,6 +8,7 @@
 
 #include "State.h"
 #include <vector>
+#include <string>
 
 
 using namespace std;
@@ -19,8 +20,6 @@ using namespace std;
 template <class T>
 class Searchable
 {
-    State<T> start;
-    State<T> end;
 public:
     virtual  State<T> getInitialState() = 0;
     virtual bool isGoalState(State<T> state) = 0;
