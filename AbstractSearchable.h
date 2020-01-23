@@ -10,8 +10,8 @@
 template <class T>
 class AbstractSearchable: public Searchable<T>{
 private:
-    State<T> start;
-    State<T> end;
+    State<T>* start;
+    State<T>* end;
 public:
     virtual  State<T> getInitialState() = 0;
     virtual bool isGoalState(State<T> state);

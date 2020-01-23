@@ -1,0 +1,20 @@
+Tasks
+
+ - CacheManager:
+                update solution
+                how to save file, what is the name of the file?
+                    Solution nameFile: algoName + ???
+                    Problem
+
+ - OA:
+                create the class
+
+ - Solution:
+                printSolution: print like the output we get. "Right(cost).... "
+ - Searcher:
+                check BestFS
+                create: A*, BFS, DFS
+
+ - check the algorithm and make PDF file with the result
+
+ - ParallelServer
