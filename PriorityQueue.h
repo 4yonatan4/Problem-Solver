@@ -65,7 +65,7 @@ bool PriorityQueue<T>::contain(State<T> *s) {
             // get back all State to the queue
             int size = temp->size();
             for (int i = 0; i < size; ++i) {
-                queue->push(temp[i]);
+                queue->push(temp->at(i));
             }
             return true;
         }
@@ -74,7 +74,7 @@ bool PriorityQueue<T>::contain(State<T> *s) {
     // get back all State to the queue
     int size = temp->size();
     for (int i = 0; i < size; ++i) {
-        queue->push(temp[i]);
+        queue->push(temp->at(i));
     }
     return false;
 }
@@ -95,7 +95,7 @@ void PriorityQueue<T>::updateKey(State<T> *s) {
             // get back all State to the queue, include s himself
             int size = temp->size();
             for (int i = 0; i < size; ++i) {
-                queue->push(temp[i]);
+                queue->push(temp->at(i));
             }
             return;
         }

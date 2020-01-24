@@ -2,15 +2,9 @@ Tasks
 
  - CacheManager:
                 update solution
-                how to save file, what is the name of the file?
-
-                    Problem
 
  - OA:
                 create the class
-
- - Solution:
-                printSolution: print like the output we get. "Right(cost).... "
  - Searcher:
                 check BestFS
                 create: A*, BFS, DFS
@@ -20,5 +14,5 @@ Tasks
  - ParallelServer
 
  T Point*
- P vector<string>
+ P vector<string>*
  S string

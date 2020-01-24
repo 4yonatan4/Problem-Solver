@@ -19,11 +19,11 @@ public:
     State<Point*>* goalState;
 
 
-    string toString() override;
+    string toString() override{};
     MatrixBuilder(vector<string>* matrix)
     {
 
-        this->theMatrix = new vector<vector<State<Point> *>> *;
+        this->theMatrix = new vector<vector<State<Point*> *>*>;
         this->enter = matrix->size() - 1;
         this->exit = matrix->size();
         this->rows = matrix->size() - 2;
@@ -51,7 +51,7 @@ public:
                     count++;
                 }
                 Point *point = new Point(i, j);
-                auto *state = new State<Point *>(*point);
+                auto *state = new State<Point *>(point);
                 state->value = stoi(temp);
                 theMatrix->at(i)->push_back(state);
                 count++;
@@ -61,7 +61,7 @@ public:
         string enterLine = matrix->at(enter);
         string temp;
         bool foundComma = false;
-        for (int i = 0; i < exit.length(); i++)
+        for (i = 0; i < enterLine.length(); i++)
         {
             while (!foundComma)
             {
@@ -79,13 +79,13 @@ public:
         }
         enterJ = stoi(temp);
         Point *entrancePoint = new Point(enterI, enterJ);
-        this->firstState = new State<Point *>(*entrancePoint);
+        this->firstState = new State<Point *>(entrancePoint);
 
         count = 0;
         string exitLine = matrix->at(exit);
         string temp2;
         foundComma = false;
-        for (int i = 0; i < exitLine.length(); i++)
+        for (i = 0; i < exitLine.length(); i++)
         {
             while (!foundComma)
             {
@@ -103,7 +103,7 @@ public:
         }
         exitJ = stoi(temp2);
         auto *exitPoint = new Point(exitI, exitJ);
-        this->goalState = new State<Point*>(*exitPoint);
+        this->goalState = new State<Point*>(exitPoint);
     }
 
 
@@ -120,9 +120,9 @@ public:
     {
         return state->equals(goalState);
     }
-    vector<State<Point*>>* getAllPossibleStates(State<Point*>* state) override
+    vector<State<Point*>*>* getAllPossibleStates(State<Point*>* state) override
     {
-        vector<State<Point*>>* possibleStatesVector = new vector<State<Point*>>;
+        vector<State<Point*>*>* possibleStatesVector = new vector<State<Point*>*>;
         //x(j)= columns
         int x = state->state->getX();
         //y(i) = rows

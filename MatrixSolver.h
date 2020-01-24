@@ -14,21 +14,23 @@
 #define MAX 50
 
 using namespace std;
-template <class T>
+
 class MatrixSolver : public Solver<vector<string>*, string>
 {
-    Searcher<Point>* searcher;
+
 public:
+    Searcher<Point*>* searcher;
     //constructor
-    MatrixSolver(Searcher<Point>* searcher)
+    MatrixSolver(Searcher<Point*>* searcher)
     {
         this->searcher = searcher;
     }
 
-    string solve(vector<string> matrix)
+    string solve(vector<string>* matrix) override
     {
-        MatrixBuilder<Point*>* matrixProblemToBuild = new MatrixBuilder<Point*>(&matrix);
-        return this->searcher->search(matrixProblemToBuild);
+        auto* matrixProblemToBuild = new MatrixBuilder<Point*>(matrix);
+        Solution<Point*>* solution = this->searcher->search(matrixProblemToBuild);
+        return solution->getSolution();
     }
 
 

@@ -38,7 +38,7 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
     open->push(searchable->getInitialState());
     // while open queue isn't empty
     while (!open->empty()) {
-        State<T> n = open->top();
+        State<T>* n = open->top();
         open->pop();
         closed->insert(n);
         //
@@ -47,20 +47,20 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
             Solution<T> *solution = backTrace(n, searchable->getInitialState());
             return solution;
         }
-        vector<State<T>> *successors = searchable->getAllPossibleStates(n);
+        vector<State<T>*> *successors = searchable->getAllPossibleStates(n);
         int size = successors->size();
         for (int i = size; i < size; ++i) {
-            State<T> *s = successors[i];
+            State<T> *s = successors->at(i);
             // if s is not in OPEN and not in CLOSED
-            if (!(open->contain(s)) && !(closed->find(s))) {
-                s->father = n;
-                s->cost += n.getCost();
+            if (!(open->contain(s)) && (closed->find(s) == closed->end())) {
+                s->cameFrom = n;
+                s->cost += n->getCost();
                 open->push(s);
             }
                 // s in the open queue
                 // relax
-            else if (n.getCost() + s->value < s->cost) {
-                s->cost = n.getCost() + s->value;
+            else if (n->getCost() + s->value < s->cost) {
+                s->cost = n->getCost() + s->value;
                 // update key
                 open->updateKey(s);
             }
@@ -71,7 +71,7 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
 template<class T>
 Solution<T>* BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
     // create empty Solution - vector of states
-    auto *solution = new Solution<string>();
+    auto *solution = new Solution<Point*>();
     // start from the goal, and check his cameFrom
     State<T> *s = goalState;
     // go back until the beginning

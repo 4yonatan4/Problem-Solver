@@ -28,6 +28,6 @@ int Point::distance(const Point &p) const
 }
 
 Point::~Point() {
-    // TODO Auto-generated destructor stub
+
 }
 

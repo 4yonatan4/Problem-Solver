@@ -9,33 +9,43 @@
 #include <vector>
 #include <string>
 
-template <class T>
-class Solution{
+template<class T>
+class Solution {
 private:
-    std::vector<State<T>*>* vectorOfStates;
+    std::vector<State<T> *> *vectorOfStates;
 public:
-    Solution(){
-        vectorOfStates = new std::vector<State<T>*>();
+    Solution() {
+        vectorOfStates = new std::vector<State<T> *>();
     }
-    virtual ~Solution(){
+
+    virtual ~Solution() {
         delete vectorOfStates;
     };
-    std::vector<State<T>*>* getVectorOfStates (){
+
+    std::vector<State<T> *> *getVectorOfStates() {
         return vectorOfStates;
     }
+
     // print the solution
-    void printSolution();
+    string createSolution();
+
+    string getSolution() {
+        return this->createSolution();
+    }
 };
 
-template <class T>
-void Solution<T>::printSolution() {
-    std::string finalSolution = "";
+template<class T>
+string Solution<T>::createSolution() {
+    std::string finalSolution;
     // loop in vector
     // print every direction + (cost)
-    for(State<T>* s : vectorOfStates){
+    int size = vectorOfStates->size();
+    for (int i = 0; i < size; i++) {
+        State<T> *s = vectorOfStates->at(i);
         std::string temp = s->nextMove + " (" + to_string(s->getCost()) + "), ";
         finalSolution += temp;
     }
+    return finalSolution;
 }
 
 #endif //EX4_SOLUTION_H

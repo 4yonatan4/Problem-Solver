@@ -16,17 +16,12 @@ public:
     int cost = value;
     State<T> *cameFrom;
     std::string nextMove;
-    explicit State(Point &point)
+    explicit State(Point* point)
     {
         this->state = point;
     }
 
-// will be Point in matrix
-
-
-    bool equals(State<T> &other) {
-        return ((this->point.getX() == other.point.getX()) && (this->point.getY() == other.point.getY()));
-    }
+    bool equals(State<T>* other);
 
     double getCost() const{
         return this->cost;
@@ -42,6 +37,18 @@ public:
         }
     };
 };
+
+// will be Point in matrix
+template<class T>
+bool State<T>::equals(State<T>* other) {
+    // maybe like this ???
+//    Point* p1 = this->state;
+//    Point* p2 = other->state;
+
+    Point* p1 = (Point*) this->state;
+    Point* p2 = (Point*) other->state;
+    return ((p1->getX() == p2->getX()) && (p1->getY() == p2->getY()));
+}
 
 
 
