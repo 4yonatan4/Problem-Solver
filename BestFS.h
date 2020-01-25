@@ -87,6 +87,7 @@ Solution<T>* BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
         // go back in the trace
         s = s->cameFrom;
     }
+    solution->getVectorOfStates()->insert(solution->getVectorOfStates()->begin(), s);
     return solution;
 }
 
@@ -96,20 +97,20 @@ string BestFS<Point*>::checkDirection(State<Point*> *s1, State<Point*> *cameFrom
     Point* cameFrom = cameFrom1->state;
     // x values equals
     if (s->getX() == cameFrom->getX()) {
-        // s lower then cameFrom --> go UP
+        // Left
         if (s->getY() < cameFrom->getY()) {
-            return "Up";
-        } else { // cameFrom lower then s --> go DOWN
-            return "Down";
+            return "Left";
+        } else { // Right
+            return "Right";
         }
     }
     // y values equals
     if (s->getY() == cameFrom->getY()) {
-        // s left to cameFrom --> go LEFT
+        // Down
         if (s->getX() < cameFrom->getX()) {
-            return "Left";
-        } else { // cameFrom left to s --> go RIGHT
-            return "Right";
+            return "Up";
+        } else { // Up
+            return "Down";
         }
     }
     return "undefined move";
