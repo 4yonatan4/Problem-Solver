@@ -62,6 +62,7 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
                 // relax
             else if (n->getCost() + s->value < s->cost) {
                 s->cost = n->getCost() + s->value;
+                s->cameFrom = n;
                 // update key
                 open->updateKey(s);
             }

@@ -40,16 +40,17 @@ string Solution<T>::createSolution() {
     // loop in vector
     // print every direction + (cost)
     int size = vectorOfStates->size();
-    State<T> *s;
+    State<T> *s = vectorOfStates->at(0);
+    finalSolution += s->nextMove;
     int i;
-    for (i = 0; i < size - 1; i++) {
+    for (i = 1; i < size - 1; i++) {
         s = vectorOfStates->at(i);
-        std::string temp = s->nextMove + " (" + to_string(s->getCost()) + "), ";
+        std::string temp = " (" + to_string(s->getCost()) + "), " + s->nextMove;
         finalSolution += temp;
     }
     // insert the last step
     s = vectorOfStates->at(i);
-    std::string temp = s->nextMove + " (" + to_string(s->getCost()) + ")";
+    std::string temp = " (" + to_string(s->getCost()) + ")";
     finalSolution += temp;
     return finalSolution;
 }

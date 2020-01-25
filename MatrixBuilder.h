@@ -102,23 +102,26 @@ void MatrixBuilder<Point *>::createTheMatrix(vector<string> *matrix) {
 template<>
 vector<State<Point *> *> *MatrixBuilder<Point *>::getAllPossibleStates(State<Point *> *state) {
     vector<State<Point *> *> *possibleStatesVector = new vector<State<Point *> *>;
-//x(j)= columns
+//x(i)= rows
     int x = state->state->getX();
-//y(i) = rows
+//y(j) = columns
     int y = state->state->getY();
-//up
+    // left
     if (y != 0) {
         if (this->theMatrix->at(x)->at(y-1)->value != -1)
             possibleStatesVector->push_back(this->theMatrix->at(x)->at(y-1));
     }
+    // right
     if (y != this->columns - 1) {
-        if (this->theMatrix->at(y + 1)->at(x)->value != -1)
+        if (this->theMatrix->at(x)->at(y+1)->value != -1)
             possibleStatesVector->push_back(this->theMatrix->at(x)->at(y+1));
     }
+    // up
     if (x != 0) {
         if (this->theMatrix->at(x-1)->at(y)->value != -1)
             possibleStatesVector->push_back(this->theMatrix->at(x-1)->at(y));
     }
+    // down
     if (x != this->rows - 1) {
         if (this->theMatrix->at(x+1)->at(y)->value != -1)
             possibleStatesVector->push_back(this->theMatrix->at(x+1)->at(y));
