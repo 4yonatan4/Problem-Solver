@@ -23,7 +23,7 @@ public:
 
     bool equals(State<T>* other);
 
-    double getCost() const{
+    int getCost() const{
         return this->cost;
     }
 

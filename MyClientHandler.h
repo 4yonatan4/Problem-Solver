@@ -15,63 +15,54 @@
 #include <fstream>
 
 
-
-#define MAXSIZE  10000
+#define MAXSIZE  2048
 
 using namespace std;
 
-class MyClientHandler : public ClientHandler
-{
+class MyClientHandler : public ClientHandler {
 public:
-    Solver<vector<string>*, string> *solver;
-    CacheManager<vector<string>*, string> *cacheManager;
+    Solver<vector<string> *, string> *solver;
+    CacheManager<vector<string> *, string> *cacheManager;
 
-    MyClientHandler(Solver<vector<string>*,string>* solver1, CacheManager<vector<string>*, string> *cacheManager1)
-    {
+    MyClientHandler(Solver<vector<string> *, string> *solver1, CacheManager<vector<string> *, string> *cacheManager1) {
         this->solver = solver1;
         this->cacheManager = cacheManager1;
     }
 
-    void handleClient(int client_socket) override
-    {
+    void handleClient(int client_socket) override {
         char buffer[MAXSIZE];
-        int valread = read(client_socket, buffer, MAXSIZE);
-        string line;
-        auto* matrix = new vector<string>();
-        bool stop = false;
-        while (!stop){
-            for (int i = 0; buffer[i] != '\0'; i++)
-            {
-                if (buffer[i] == '\n')
-                {
-                    matrix->push_back(line);
-                    line = "";
-                    break;
-                }
-                if (buffer[i] == ' ')
-                {
-                    continue;
-                }
-                if (buffer[i] == 'e')
-                {
-                    stop = true;
-                    break;
-                }
-                line += buffer[i];
-            }
-            valread = read(client_socket, buffer, MAXSIZE);
-        }
 
+        string line;
+        auto *matrix = new vector<string>();
+        bool end = false;
+        while (!end){
+            int valread = read(client_socket, buffer, MAXSIZE);
+            line = "";
+            for (char c: buffer) {
+                if (c == '\n') {
+                    if (line == "end"){
+                        end = true;
+                        break;
+                    }
+                    matrix->push_back(line);
+                    break;
+                }
+                if (c != ' ') {
+                    line += c;
+                }
+            }
+        }
         string solution;
         // check if the problem is in the cache
-        if (this->cacheManager->contain(matrix)){
+        if (this->cacheManager->contain(matrix)) {
             solution = this->cacheManager->get(matrix);
         } else {
             solution = this->solver->solve(matrix);
             this->cacheManager->save(matrix, solution);
         }
         const char *sol = solution.c_str();
-        send(client_socket , sol , strlen(sol), 0);
+        send(client_socket, sol, strlen(sol), 0);
     }
 };
+
 #endif //EX4_MYCLIENTHANDLER_H

@@ -5,12 +5,14 @@
 #ifndef EX4_POINT_H
 #define EX4_POINT_H
 
+#include <string>
 class Point {
 public:
     /**
      * Constructor and destructor
      */
     Point(int x, int y);
+    Point(std::string line);
     virtual ~Point();
 
     /**

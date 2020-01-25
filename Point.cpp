@@ -6,24 +6,28 @@
 
 using namespace std;
 
-Point::Point(int x, int y) : x(x), y(y)
-{
+Point::Point(int x, int y) : x(x), y(y) {
 
 }
 
-int Point::getX() const
-{
+Point::Point(std::string line) {
+    int foundComma = line.find(',');
+    string x1 = line.substr(0, foundComma);
+    string y1 = line.substr(foundComma + 1);
+    this->x = stoi(x1);
+    this->y = stoi(y1);
+}
+
+int Point::getX() const {
     return x;
 }
 
-int Point::getY() const
-{
+int Point::getY() const {
     return y;
 }
 
-int Point::distance(const Point &p) const
-{
-    double distance = y-x;
+int Point::distance(const Point &p) const {
+    double distance = y - x;
     return distance;
 }
 

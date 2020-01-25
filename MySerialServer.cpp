@@ -61,8 +61,6 @@ int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
         std::cout << "Server is now listening ..." << std::endl;
     }
     while (run) {
-
-
         // accepting a client
         int client_socket = accept(socketfd, (struct sockaddr *) &address,
                                    (socklen_t *) &address);

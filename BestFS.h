@@ -20,9 +20,10 @@ class BestFS : public AbstractSearcher<T> {
 private:
     PriorityQueue<T> *open;
     set<State<T>*> *closed;
+    int numOfNodesEvaluated = 0;
 public:
     BestFS<T>() {
-        open = new PriorityQueue<T>(this->numOfNodesEvaluated);
+        open = new PriorityQueue<T>(&this->numOfNodesEvaluated);
         closed = new set<State<T>*>();
     }
 
@@ -49,7 +50,7 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
         }
         vector<State<T>*> *successors = searchable->getAllPossibleStates(n);
         int size = successors->size();
-        for (int i = size; i < size; ++i) {
+        for (int i = 0; i < size; ++i) {
             State<T> *s = successors->at(i);
             // if s is not in OPEN and not in CLOSED
             if (!(open->contain(s)) && (closed->find(s) == closed->end())) {
