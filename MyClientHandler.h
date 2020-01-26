@@ -62,6 +62,7 @@ public:
         }
         const char *sol = solution.c_str();
         send(client_socket, sol, strlen(sol), 0);
+        cout << "Answer sent to client!\n" << endl;
     }
 };
 

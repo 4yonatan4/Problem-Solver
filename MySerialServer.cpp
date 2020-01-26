@@ -53,14 +53,16 @@ int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
         std::cerr << "Could not bind the socket to an IP" << std::endl;
         return -2;
     }
-    //making socket listen to the port
-    if (listen(socketfd, 5) == -1) { //can also set to SOMAXCON (max connections)
-        std::cerr << "Error during listening command" << std::endl;
-        return -3;
-    } else {
-        std::cout << "Server is now listening ..." << std::endl;
-    }
+
     while (run) {
+        //making socket listen to the port
+        if (listen(socketfd, 5) == -1) { //can also set to SOMAXCON (max connections)
+            std::cerr << "Error during listening command" << std::endl;
+            return -3;
+        } else {
+            std::cout << "Server is now listening ..." << std::endl;
+        }
+
         // accepting a client
         int client_socket = accept(socketfd, (struct sockaddr *) &address,
                                    (socklen_t *) &address);
@@ -70,6 +72,6 @@ int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
             return -4;
         }
         clientHandler->handleClient(client_socket);
-        close(socketfd); //closing the listening socket
     }
+    close(socketfd);//closing the listening socket
 }
