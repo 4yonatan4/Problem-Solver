@@ -1,13 +1,6 @@
 Tasks
-
- - CacheManager:
-                update solution
-
- - OA:
-                create the class
  - Searcher:
-                check BestFS
-                create: A*, BFS, DFS
+                BFS, DFS
 
  - check the algorithm and make PDF file with the result
 

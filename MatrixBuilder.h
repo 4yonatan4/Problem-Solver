@@ -19,6 +19,10 @@ public:
     State<Point *> *firstState;
     State<Point *> *goalState;
 
+    State<Point*>* getGoalState(){
+        return this->goalState;
+    }
+
     void createTheMatrix(vector<string> *matrix);
 
     void calculateColumns(vector<string> *matrix);

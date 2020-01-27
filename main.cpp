@@ -5,6 +5,7 @@
 #include "MyClientHandler.h"
 #include "State.h"
 #include "BestFS.h"
+#include "Astar.h"
 #include <string>
 
 

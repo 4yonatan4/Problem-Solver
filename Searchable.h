@@ -24,6 +24,7 @@ public:
     virtual  State<T>* getInitialState() = 0;
     virtual bool isGoalState(State<T>* state) = 0;
     virtual vector<State<T>*>* getAllPossibleStates(State<T>* state) = 0;
+    virtual State<T>* getGoalState() = 0;
     virtual string toString() = 0;
 
 };

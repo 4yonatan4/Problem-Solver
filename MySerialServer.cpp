@@ -34,7 +34,7 @@ int MySerialServer::openServer(int port, ClientHandler *clientHandler) {
     }
 
     struct timeval tv;
-    tv.tv_sec = 20;
+    tv.tv_sec = 120;
     // Forcefully attaching socket
     if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO,
                    &tv, sizeof(tv))) {
