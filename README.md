@@ -6,7 +6,7 @@ In this program, we deal with provding a solution for a problem given to us. We 
 
 # Input/Output
 
-As input, we need to be provided with a problem, which in our case is a Matrix, where each cell represents a certain value. Each line in the matrix will be seperated by a /n. In addition to the matrix, there needs to be 3 additional lines, 2 which tell us the start point and the finish point of the matrix, and the last line has the word "end" which tells us to stop reading the file. The output, will be the fastest way to get from the start point to the goal point in the matrix (in essence we are solving a maze). 
+As input, we need to be provided with a problem, which in our case is a Matrix, where each cell represents a certain value(state). Each line in the matrix will be seperated by a /n. In addition to the matrix, there needs to be 3 additional lines, 2 which tell us the start point and the finish point of the matrix, and the last line has the word "end" which tells us to stop reading the file. The output, will be the fastest way to get from the start point to the goal point in the matrix (in essence we are solving a maze). 
 
 
 
