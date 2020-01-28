@@ -64,6 +64,8 @@ void MatrixBuilder<Point *>::calculateColumns(vector<string> *matrix) {
     string line = matrix->at(0);
     int count = 0;
     for (char c: line) {
+        //every time we see a cooma we know its a colunmn
+
         if (c == ',') {
             count++;
         }
@@ -72,19 +74,26 @@ void MatrixBuilder<Point *>::calculateColumns(vector<string> *matrix) {
 }
 
 template<>
-void MatrixBuilder<Point *>::createTheMatrix(vector<string> *matrix) {
+void MatrixBuilder<Point *>::createTheMatrix(vector<string> *matrix)
+{
     int i, j, count = 0;
     string line;
-    for (i = 0; i < rows; i++) {
+    for (i = 0; i < rows; i++)
+    {
         count = 0;
         line = matrix->at(i);
         theMatrix->push_back(new vector<State<Point *> *>());
-        for (j = 0; j < columns; j++) {
+        for (j = 0; j < columns; j++)
+        {
             string temp;
-            while (line[count] != ',') {
+            //split the matrix and erase the commas
+            while (line[count] != ',')
+            {
                 temp += line[count];
                 count++;
-                if (line[count] == '\0') {
+                //end of file
+                if (line[count] == '\0')
+                {
                     break;
                 }
             }

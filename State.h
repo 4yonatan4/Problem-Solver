@@ -14,11 +14,13 @@ public:
     T state;
     int value;
     int cost = value;
+    char color;
     State<T> *cameFrom;
     std::string nextMove;
     explicit State(Point* point)
     {
         this->state = point;
+        this->color = 'w';
     }
 
     bool equals(State<T>* other);
@@ -26,6 +28,15 @@ public:
     int getCost() const{
         return this->cost;
     }
+
+    char getColor() const {
+        return color;
+    }
+
+    void setColor(char color) {
+        this->color = color;
+    }
+
 
     // To compare two cost
     class costComparator
@@ -49,6 +60,7 @@ bool State<T>::equals(State<T>* other) {
     Point* p2 = (Point*) other->state;
     return ((p1->getX() == p2->getX()) && (p1->getY() == p2->getY()));
 }
+
 
 
 
