@@ -15,7 +15,8 @@ As input, we need to be provided with a problem, which in our case is a Matrix, 
 In order for the code to compile, the program needs to be provided with a socket to enable us to create a certain stream that will connect with our program and in that stream we will be sent a file that holds the matrix. 
 
 To compile from the command line use: 
-g++ -std=c++14 *.cpp -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -o a.out -pthread 
+
+g++ -std=c++14 *.cpp -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -o a.out -pthread  
 
  
 
