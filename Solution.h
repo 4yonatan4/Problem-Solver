@@ -13,7 +13,11 @@ template<class T>
 class Solution {
 private:
     std::vector<State<T> *> *vectorOfStates;
+    int numOfNodesEvaluated;
 public:
+    void setnumOfNodesEvaluated(int num){
+        this->numOfNodesEvaluated = num;
+    }
     Solution() {
         vectorOfStates = new std::vector<State<T> *>();
     }
@@ -52,6 +56,7 @@ string Solution<T>::createSolution() {
     s = vectorOfStates->at(i);
     std::string temp = " (" + to_string(s->getCost()) + ")";
     finalSolution += temp;
+    finalSolution += " Total nodes: " + to_string(this->numOfNodesEvaluated);
     return finalSolution;
 }
 

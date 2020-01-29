@@ -11,53 +11,65 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <mutex>
 #include "CacheManager.h"
 
 using namespace std;
 
-template <class P, class S>
-class FileCacheManager : public CacheManager<vector<string>*, string> {
+template<class P, class S>
+class FileCacheManager : public CacheManager<vector<string> *, string> {
 public:
+    //std::mutex mutex;
     // get problem and return if we already got the solution
-    bool contain(vector<string>* problem) override {
+    bool contain(vector<string> *problem) override {
+        // lock the fuction. will unlock in the end of the function.
+        std::lock_guard<std::mutex> guard(mutex);
         string str = hashName(problem);
         ifstream inputStream(str, ios::binary);
         return (!inputStream.fail());
     }
 
     // save solution to a specific problem
-    void save(vector<string>* problem, string solution) override {
+    void save(vector<string> *problem, string solution) override {
+        // lock the fuction. will unlock in the end of the function.
+        std::lock_guard<std::mutex> guard(mutex);
         // make uniqe name of the problem
         string str = hashName(problem);
         // open the output stream
         ofstream outputStream(str, ios::binary);
         // update the file
-        outputStream.write((char *) &solution, solution.size());
+        outputStream << solution << endl;
         // close the output stream
         outputStream.close();
     }
 
     // get
-    string get(vector<string>* problem) override {
+    string get(vector<string> *problem) override {
+        // lock the fuction. will unlock in the end of the function.
+        std::lock_guard<std::mutex> guard(mutex);
         // make uniqe name of the problem
         string str = hashName(problem);
         // try to open the file = search the solution in the files
-        ifstream inputStream(str, ios::binary);
-        // not fail = found, fail = not found.
-        if (inputStream.fail()) {
-            return nullptr;
-        } else { // found the file
-            string solution;
-            inputStream.read((char *) &solution, solution.size());
+        ifstream inputStream;
+        inputStream.open(str, ios::binary);
+        // found the file
+        if (inputStream.is_open()) {
+            string solution{};
+            getline(inputStream, solution);
             inputStream.close();
             return solution;
+        } else { // fail = file not found.
+            cout << "file not found" << endl;
+            return nullptr;
         }
     }
 
-    string hashName(vector<string>* problem){
+    string hashName(vector<string> *problem) {
+        // lock the fuction. will unlock in the end of the function.
+        std::lock_guard<std::mutex> guard(mutex);
         string hashProblem;
         int size = problem->size();
-        for(string s : *problem){
+        for (string s : *problem) {
             hashProblem += s;
         }
         hash<string> hash1;

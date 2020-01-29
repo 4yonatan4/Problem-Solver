@@ -17,7 +17,7 @@
 
 #define MAXSIZE  2048
 
-using namespace std;
+//using namespace std;
 
 class MyClientHandler : public ClientHandler {
 public:
@@ -29,22 +29,33 @@ public:
         this->cacheManager = cacheManager1;
     }
 
+    virtual CacheManager<vector<string> *, string>* getClientHandler() {
+        return this->cacheManager;
+    }
+
     void handleClient(int client_socket) override {
         char buffer[MAXSIZE];
-
         string line;
         auto *matrix = new vector<string>();
         bool end = false;
-        while (!end){
+        while (!end) {
             int valread = read(client_socket, buffer, MAXSIZE);
+            if (valread < 0){
+                cout << "ERROR reading from socket\n";
+                break;
+            }
             line = "";
             for (char c: buffer) {
                 if (c == '\n') {
-                    if (line == "end"){
+                    if (line == "end") {
                         end = true;
                         break;
                     }
                     matrix->push_back(line);
+                    break;
+                }
+                if (c == EOF){
+                    end = true;
                     break;
                 }
                 if (c != ' ') {
@@ -52,6 +63,7 @@ public:
                 }
             }
         }
+
         string solution;
         // check if the problem is in the cache
         if (this->cacheManager->contain(matrix)) {
@@ -62,6 +74,7 @@ public:
         }
         const char *sol = solution.c_str();
         send(client_socket, sol, strlen(sol), 0);
+        cout << "Answer sent to client!\n" << endl;
     }
 };
 

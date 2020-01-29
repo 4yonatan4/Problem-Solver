@@ -30,7 +30,10 @@ public:
     {
         auto* matrixProblemToBuild = new MatrixBuilder<Point*>(matrix);
         Solution<Point*>* solution = this->searcher->search(matrixProblemToBuild);
-        return solution->getSolution();
+        if (solution != nullptr){
+            return solution->getSolution();
+        }
+        return "Path Not Found!";
     }
 
 

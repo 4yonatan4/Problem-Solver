@@ -1,10 +1,9 @@
 //
-// Created by yonatan on 22/01/2020.
+// Created by yonatan on 27/01/2020.
 //
 
-#ifndef EX4_PRIORITYQUEUE_H
-#define EX4_PRIORITYQUEUE_H
-
+#ifndef EX4_PRIORITYQUEUEHEURISTIC_H
+#define EX4_PRIORITYQUEUEHEURISTIC_H
 #include "State.h"
 #include <functional>
 #include <queue>
@@ -15,13 +14,13 @@ using namespace std;
 
 
 template<class T>
-class PriorityQueue {
+class PriorityQueueHeuristic {
 public:
     int *numOfNodesEvaluated;
-    priority_queue<State<T> *, vector<State<T> *>, typename State<T>::costComparator> *queue;
+    priority_queue<State<T> *, vector<State<T> *>, typename State<T>::HeuristicComparator> *queue;
 
-    PriorityQueue(int *numOfNodesEvaluated1) {
-        queue = new priority_queue<State<T> *, vector<State<T> *>, typename State<T>::costComparator>();
+    PriorityQueueHeuristic(int *numOfNodesEvaluated1) {
+        queue = new priority_queue<State<T> *, vector<State<T> *>, typename State<T>::HeuristicComparator>();
         numOfNodesEvaluated = numOfNodesEvaluated1;
     }
 
@@ -53,7 +52,7 @@ template<class T>
 /*
      * check if the queue contain specific State
      */
-bool PriorityQueue<T>::contain(State<T> *s) {
+bool PriorityQueueHeuristic<T>::contain(State<T> *s) {
     auto *temp = new vector<State<T> *>();
     // pop every State, and check if equal to s.
     // if it is, return true
@@ -83,7 +82,7 @@ bool PriorityQueue<T>::contain(State<T> *s) {
  * update key - get out all element until s, and pushed them back
  */
 template<class T>
-void PriorityQueue<T>::updateKey(State<T> *s) {
+void PriorityQueueHeuristic<T>::updateKey(State<T> *s) {
     auto *temp = new vector<State<T> *>();
     // pop every State, and check if equal to s.
     // if it is, return true
@@ -108,6 +107,4 @@ void PriorityQueue<T>::updateKey(State<T> *s) {
     }
     return;
 }
-
-
-#endif //EX4_PRIORITYQUEUE_H
+#endif //EX4_PRIORITYQUEUEHEURISTIC_H

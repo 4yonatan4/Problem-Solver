@@ -19,11 +19,15 @@ public:
     State<Point *> *firstState;
     State<Point *> *goalState;
 
-    void createTheMatrix(vector<string> *matrix);
+    State<Point*>* getGoalState(){
+        return this->goalState;
+    }
 
-    void calculateColumns(vector<string> *matrix);
+    //void createTheMatrix(vector<string> *matrix);
 
-    vector<State<Point *> *> *getAllPossibleStates(State<Point *> *state) override;
+    //void calculateColumns(vector<string> *matrix);
+
+    //vector<State<Point *> *> *getAllPossibleStates(State<Point *> *state) override;
 
     string toString() override {};
 
@@ -57,85 +61,145 @@ public:
         return state->equals(goalState);
     }
 
-};
-
-template<>
-void MatrixBuilder<Point *>::calculateColumns(vector<string> *matrix) {
-    string line = matrix->at(0);
-    int count = 0;
-    for (char c: line) {
-        //every time we see a cooma we know its a colunmn
-
-        if (c == ',') {
-            count++;
-        }
-    }
-    this->columns = count + 1;
-}
-
-template<>
-void MatrixBuilder<Point *>::createTheMatrix(vector<string> *matrix)
-{
-    int i, j, count = 0;
-    string line;
-    for (i = 0; i < rows; i++)
-    {
-        count = 0;
-        line = matrix->at(i);
-        theMatrix->push_back(new vector<State<Point *> *>());
-        for (j = 0; j < columns; j++)
-        {
-            string temp;
-            //split the matrix and erase the commas
-            while (line[count] != ',')
-            {
-                temp += line[count];
+    void calculateColumns(vector<string> *matrix) {
+        string line = matrix->at(0);
+        int count = 0;
+        for (char c: line) {
+            if (c == ',') {
                 count++;
-                //end of file
-                if (line[count] == '\0')
-                {
-                    break;
-                }
             }
-            Point *point = new Point(i, j);
-            auto *state = new State<Point *>(point);
-            state->value = stoi(temp);
-            state->cost = state->value;
-            theMatrix->at(i)->push_back(state);
-            count++;
+        }
+        this->columns = count + 1;
+    }
+
+
+    void createTheMatrix(vector<string> *matrix) {
+        int i, j, count = 0;
+        string line;
+        for (i = 0; i < rows; i++) {
+            count = 0;
+            line = matrix->at(i);
+            theMatrix->push_back(new vector<State<Point *> *>());
+            for (j = 0; j < columns; j++) {
+                string temp;
+                while (line[count] != ',') {
+                    temp += line[count];
+                    count++;
+                    if (line[count] == '\0') {
+                        break;
+                    }
+                }
+                Point *point = new Point(i, j);
+                auto *state = new State<Point *>(point);
+                state->value = stoi(temp);
+                state->cost = state->value;
+                theMatrix->at(i)->push_back(state);
+                count++;
+            }
         }
     }
-}
 
 
-template<>
-vector<State<Point *> *> *MatrixBuilder<Point *>::getAllPossibleStates(State<Point *> *state) {
-    vector<State<Point *> *> *possibleStatesVector = new vector<State<Point *> *>;
+
+    vector<State<Point *> *> *getAllPossibleStates(State<Point *> *state) {
+        vector<State<Point *> *> *possibleStatesVector = new vector<State<Point *> *>;
 //x(i)= rows
-    int x = state->state->getX();
+        int x = state->state->getX();
 //y(j) = columns
-    int y = state->state->getY();
-    // left
-    if (y != 0) {
-        if (this->theMatrix->at(x)->at(y-1)->value != -1)
-            possibleStatesVector->push_back(this->theMatrix->at(x)->at(y-1));
+        int y = state->state->getY();
+        // left
+        if (y != 0) {
+            if (this->theMatrix->at(x)->at(y-1)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y-1));
+        }
+        // right
+        if (y != this->columns - 1) {
+            if (this->theMatrix->at(x)->at(y+1)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y+1));
+        }
+        // up
+        if (x != 0) {
+            if (this->theMatrix->at(x-1)->at(y)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x-1)->at(y));
+        }
+        // down
+        if (x != this->rows - 1) {
+            if (this->theMatrix->at(x+1)->at(y)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x+1)->at(y));
+        }
+        return possibleStatesVector;
     }
-    // right
-    if (y != this->columns - 1) {
-        if (this->theMatrix->at(x)->at(y+1)->value != -1)
-            possibleStatesVector->push_back(this->theMatrix->at(x)->at(y+1));
-    }
-    // up
-    if (x != 0) {
-        if (this->theMatrix->at(x-1)->at(y)->value != -1)
-            possibleStatesVector->push_back(this->theMatrix->at(x-1)->at(y));
-    }
-    // down
-    if (x != this->rows - 1) {
-        if (this->theMatrix->at(x+1)->at(y)->value != -1)
-            possibleStatesVector->push_back(this->theMatrix->at(x+1)->at(y));
-    }
-    return possibleStatesVector;
-}
+
+};
+//
+//template<>
+//void MatrixBuilder<Point *>::calculateColumns(vector<string> *matrix) {
+//    string line = matrix->at(0);
+//    int count = 0;
+//    for (char c: line) {
+//        if (c == ',') {
+//            count++;
+//        }
+//    }
+//    this->columns = count + 1;
+//}
+//
+//template<>
+//void MatrixBuilder<Point *>::createTheMatrix(vector<string> *matrix) {
+//    int i, j, count = 0;
+//    string line;
+//    for (i = 0; i < rows; i++) {
+//        count = 0;
+//        line = matrix->at(i);
+//        theMatrix->push_back(new vector<State<Point *> *>());
+//        for (j = 0; j < columns; j++) {
+//            string temp;
+//            while (line[count] != ',') {
+//                temp += line[count];
+//                count++;
+//                if (line[count] == '\0') {
+//                    break;
+//                }
+//            }
+//            Point *point = new Point(i, j);
+//            auto *state = new State<Point *>(point);
+//            state->value = stoi(temp);
+//            state->cost = state->value;
+//            theMatrix->at(i)->push_back(state);
+//            count++;
+//        }
+//    }
+//}
+//
+//
+//template<>
+//vector<State<Point *> *> *MatrixBuilder<Point *>::getAllPossibleStates(State<Point *> *state) {
+//    vector<State<Point *> *> *possibleStatesVector = new vector<State<Point *> *>;
+////x(i)= rows
+//    int x = state->state->getX();
+////y(j) = columns
+//    int y = state->state->getY();
+//    // left
+//    if (y != 0) {
+//        if (this->theMatrix->at(x)->at(y-1)->value != -1)
+//            possibleStatesVector->push_back(this->theMatrix->at(x)->at(y-1));
+//    }
+//    // right
+//    if (y != this->columns - 1) {
+//        if (this->theMatrix->at(x)->at(y+1)->value != -1)
+//            possibleStatesVector->push_back(this->theMatrix->at(x)->at(y+1));
+//    }
+//    // up
+//    if (x != 0) {
+//        if (this->theMatrix->at(x-1)->at(y)->value != -1)
+//            possibleStatesVector->push_back(this->theMatrix->at(x-1)->at(y));
+//    }
+//    // down
+//    if (x != this->rows - 1) {
+//        if (this->theMatrix->at(x+1)->at(y)->value != -1)
+//            possibleStatesVector->push_back(this->theMatrix->at(x+1)->at(y));
+//    }
+//    return possibleStatesVector;
+//}
 
 #endif //EX4_MATRIXBUILDER_H
