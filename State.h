@@ -34,8 +34,8 @@ public:
         return color;
     }
 
-    void setColor(char color) {
-        this->color = color;
+    void setColor(char color1) {
+        this->color = color1;
     }
 
     void setHeuristic(State<Point*>* goalState){

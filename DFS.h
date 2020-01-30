@@ -1,34 +1,27 @@
 //
-// Created by Efraim Paley on 1/26/20.
+// Created by Efraim Paley on 1/28/20.
 //
 
-#ifndef EX4_BFS_H
-#define EX4_BFS_H
-
+#ifndef EX4_DFS_H
+#define EX4_DFS_H
 #include "State.h"
 #include "AbstractSearcher.h"
-#include "PriorityQueue.h"
-#include <functional>
 #include <queue>
+#include <stack>
 #include <vector>
 #include <iostream>
-#include <set>
-#include <list>
-
-
-
 
 template<class T>
-class BFS : public AbstractSearcher<T>
+class DFS : public AbstractSearcher<T>
 {
 private:
-    queue<State<T> *> *BFSQueue;
+    stack<State<T> *> *DFSStack;
     int numOfNodesEvaluated = 0;
 public:
-    BFS<T>()
+    DFS<T>()
 
     {
-        BFSQueue = new queue<State<T> *>;
+        DFSStack = new stack<State<T> *>;
         this->numOfNodesEvaluated = 0;
     }
 
@@ -40,29 +33,22 @@ public:
 };
 
 template<class T>
-Solution<T>* BFS<T>::search(Searchable<T> *searchable)
+Solution<T>* DFS<T>::search(Searchable<T> *searchable)
 {
     State<T> *node = searchable->getInitialState();
     //set color to grey
     node->setColor('g');
-    BFSQueue->push(node);
-    while (!(BFSQueue->empty()))
+    DFSStack->push(node);
+    while (!(DFSStack->empty()))
     {
-        node = BFSQueue->front();
-        //check if we are at goal state
-        if (searchable->isGoalState(node))
-        {
-            // backtrace, return the solution - path, according to the output text that we get
-            Solution<T> *solution = backTrace(node, searchable->getInitialState());
-            solution->setnumOfNodesEvaluated(this->numOfNodesEvaluated);
-            return solution;
-        }
-       BFSQueue->pop();
+        DFSStack->pop();
         //if we hit a wall
         if (node->getCost() == -1)
         {
             //set the node to black
             node->setColor('b');
+            //update the node
+            node = DFSStack->top();
             continue;
         }
         //check all the neighbors
@@ -74,20 +60,33 @@ Solution<T>* BFS<T>::search(Searchable<T> *searchable)
             // if we didnt visit the neighbor s yet and its not a wall
             if (s->getColor() == 'w')
             {
+                //set color to grey
                 s->setColor('g');
                 s->cameFrom = node;
                 s->cost += node->getCost();
-                BFSQueue->push(s);
+                DFSStack->push(s);
             }
+
         }
-        this->numOfNodesEvaluated ++;
+        this->numOfNodesEvaluated += 1;
         //once we finish checking all the neighbors of the node- change to black
         node->setColor('b');
+        //update the node
+        node = DFSStack->top();
+        if (searchable->isGoalState(node))
+        {
+            // backtrace, return the solution - path, according to the output text that we get
+            Solution<T> *solution = backTrace(node, searchable->getInitialState());
+            solution->setnumOfNodesEvaluated(this->numOfNodesEvaluated);
+            return solution;
+        }
+
     }
+
 }
 
 template<class T>
-Solution<T>* BFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
+Solution<T>* DFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
     // create empty Solution - vector of states
     auto *solution = new Solution<Point*>();
     // start from the goal, and check his cameFrom
@@ -110,7 +109,7 @@ Solution<T>* BFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
 
 
 template<class T>
-string BFS<T>::checkDirection(State<T> *s1, State<T> *cameFrom1) {
+string DFS<T>::checkDirection(State<T> *s1, State<T> *cameFrom1) {
     Point* s = s1->state;
     Point* cameFrom = cameFrom1->state;
     // x values equals
@@ -133,5 +132,5 @@ string BFS<T>::checkDirection(State<T> *s1, State<T> *cameFrom1) {
     }
     return "undefined move";
 }
-
-#endif //EX4_BFS_H
+//ggg
+#endif //EX4_DFS_H

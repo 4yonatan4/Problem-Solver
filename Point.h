@@ -11,7 +11,7 @@ public:
     /**
      * Constructor and destructor
      */
-    Point(int x, int y);
+    Point(int x1, int y1);
     Point(std::string line);
     virtual ~Point();
 

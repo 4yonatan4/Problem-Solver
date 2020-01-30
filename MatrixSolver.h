@@ -21,9 +21,9 @@ class MatrixSolver : public Solver<vector<string>*, string>
 public:
     Searcher<Point*>* searcher;
     //constructor
-    MatrixSolver(Searcher<Point*>* searcher)
+    MatrixSolver(Searcher<Point*>* searcher1)
     {
-        this->searcher = searcher;
+        this->searcher = searcher1;
     }
 
     string solve(vector<string>* matrix) override

@@ -68,7 +68,6 @@ public:
         // lock the fuction. will unlock in the end of the function.
         std::lock_guard<std::mutex> guard(mutex);
         string hashProblem;
-        int size = problem->size();
         for (string s : *problem) {
             hashProblem += s;
         }

@@ -1,13 +1,5 @@
 Tasks
 
- - check the algorithm and make PDF file with the result
- - serialServer:
-            when we call the method 'stop'???
-
- - ParallelServer
-
-  - server: print massage when timeout
-
  T Point*
  P vector<string>*
  S string

@@ -6,6 +6,8 @@
 #include "MatrixSolver.h"
 #include <iostream>
 #include "BestFS.h"
+#include "BFS.h"
+#include "DFS.h"
 #include "Astar.h"
 #include "MyClientHandler.h"
 #include <sys/socket.h>
@@ -66,7 +68,10 @@ int MyParallelServer::openServer(int port, ClientHandler *clientHandler) {
         // accepting a client
         int client_socket = accept(socketfd, (struct sockaddr *) &address,
                                    (socklen_t *) &address);
-
+        if (errno == EWOULDBLOCK) {
+            std::cerr << "Time Out" << std::endl;
+            return -8;
+        }
         if (client_socket == -1) {
             std::cerr << "Error accepting client" << std::endl;
             return -4;
@@ -91,6 +96,7 @@ int MyParallelServer::openServer(int port, ClientHandler *clientHandler) {
         }
     }
     close(socketfd);//closing the listening socket
+    return 0;
 }
 
 int MyParallelServer::openNewClientThread(ClientHandler *newClientHandler, int client_socket) {

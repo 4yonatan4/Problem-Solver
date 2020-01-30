@@ -69,6 +69,7 @@ Solution<T>* BestFS<T>::search(Searchable<T> *searchable) {
         if (searchable->isGoalState(n)) {
             // backtrace, return the solution - path, according to the output text that we get
             Solution<T> *solution = backTrace(n, searchable->getInitialState());
+            solution->setnumOfNodesEvaluated(this->numOfNodesEvaluated);
             return solution;
         }
         vector<State<T>*> *successors = searchable->getAllPossibleStates(n);

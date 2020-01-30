@@ -34,7 +34,7 @@
 //    }
 //
 //    struct timeval tv;
-//    tv.tv_sec = 120;
+//    tv.tv_sec = 5;
 //    // Forcefully attaching socket
 //    if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO,
 //                   &tv, sizeof(tv))) {
@@ -66,6 +66,10 @@
 //        // accepting a client
 //        int client_socket = accept(socketfd, (struct sockaddr *) &address,
 //                                   (socklen_t *) &address);
+//        if (errno == EWOULDBLOCK) {
+//            std::cerr << "Time Out" << std::endl;
+//            return -8;
+//        }
 //
 //        if (client_socket == -1) {
 //            std::cerr << "Error accepting client" << std::endl;

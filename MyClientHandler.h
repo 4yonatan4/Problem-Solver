@@ -13,6 +13,9 @@
 #include "MatrixSolver.h"
 #include <vector>
 #include <fstream>
+#include <cstring>
+#include <sys/socket.h>
+#include <unistd.h>
 
 
 #define MAXSIZE  2048
@@ -74,7 +77,7 @@ public:
         }
         const char *sol = solution.c_str();
         send(client_socket, sol, strlen(sol), 0);
-        cout << "Answer sent to client!\n" << endl;
+        cout << "Answer sent to client!" << endl;
     }
 };
 
