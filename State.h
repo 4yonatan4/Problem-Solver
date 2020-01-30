@@ -65,9 +65,7 @@ public:
 // will be Point in matrix
 template<class T>
 bool State<T>::equals(State<T>* other) {
-    // maybe like this ???
-//    Point* p1 = this->state;
-//    Point* p2 = other->state;
+
 
     Point* p1 = (Point*) this->state;
     Point* p2 = (Point*) other->state;

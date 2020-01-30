@@ -19,7 +19,6 @@ using namespace std;
 template<class P, class S>
 class FileCacheManager : public CacheManager<vector<string> *, string> {
 public:
-    //std::mutex mutex;
     // get problem and return if we already got the solution
     bool contain(vector<string> *problem) override {
         // lock the fuction. will unlock in the end of the function.

@@ -28,8 +28,11 @@ public:
 
     string solve(vector<string>* matrix) override
     {
+        //build the matrix
         auto* matrixProblemToBuild = new MatrixBuilder<Point*>(matrix);
+        //find the solution
         Solution<Point*>* solution = this->searcher->search(matrixProblemToBuild);
+        //put solution into string
         if (solution != nullptr){
             return solution->getSolution();
         }

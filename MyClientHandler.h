@@ -32,7 +32,7 @@ public:
         this->cacheManager = cacheManager1;
     }
 
-    virtual CacheManager<vector<string> *, string>* getClientHandler() {
+    virtual CacheManager<vector<string> *, string>* getClientHandler() override {
         return this->cacheManager;
     }
 
@@ -70,8 +70,10 @@ public:
         string solution;
         // check if the problem is in the cache
         if (this->cacheManager->contain(matrix)) {
+            //if it is get it
             solution = this->cacheManager->get(matrix);
         } else {
+            //if not- make a new solution
             solution = this->solver->solve(matrix);
             this->cacheManager->save(matrix, solution);
         }

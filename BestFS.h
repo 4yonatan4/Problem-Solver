@@ -31,7 +31,6 @@ public:
 
     Solution<T>* backTrace(State<T> *goalState, State<T> *initState);
 
-    //string checkDirection(State<Point*> *s, State<Point*> *cameFrom);
     string checkDirection(State<Point*> *s1, State<Point*> *cameFrom1) {
         Point* s = s1->state;
         Point* cameFrom = cameFrom1->state;
@@ -116,29 +115,5 @@ Solution<T>* BestFS<T>::backTrace(State<T> *goalState, State<T> *initState) {
     return solution;
 }
 
-//template<>
-//string BestFS<Point*>::checkDirection(State<Point*> *s1, State<Point*> *cameFrom1) {
-//    Point* s = s1->state;
-//    Point* cameFrom = cameFrom1->state;
-//    // x values equals
-//    if (s->getX() == cameFrom->getX()) {
-//        // Left
-//        if (s->getY() < cameFrom->getY()) {
-//            return "Left";
-//        } else { // Right
-//            return "Right";
-//        }
-//    }
-//    // y values equals
-//    if (s->getY() == cameFrom->getY()) {
-//        // Down
-//        if (s->getX() < cameFrom->getX()) {
-//            return "Up";
-//        } else { // Up
-//            return "Down";
-//        }
-//    }
-//    return "undefined move";
-//}
 
 #endif //EX4_BESTFS_H
