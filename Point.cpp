@@ -3,6 +3,7 @@
 //
 
 #include "Point.h"
+#include <cmath>
 
 using namespace std;
 
@@ -27,11 +28,8 @@ int Point::getY() const {
 }
 
 int Point::distance(const Point &p) const {
-    double distance = y - x;
-    return distance;
+    return sqrt(pow(this->getY()-p.getY(),2) + pow(this->getX() - p.getX(),2));
 }
 
-Point::~Point() {
-
-}
+Point::~Point() = default;
 

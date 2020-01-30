@@ -19,12 +19,12 @@ public:
     State<Point *> *firstState;
     State<Point *> *goalState;
 
-    State<Point*>* getGoalState() override{
+    State<Point *> *getGoalState() override {
         return this->goalState;
     }
 
 
-    string toString() override {};
+    string toString() override { return nullptr; };
 
     MatrixBuilder(vector<string> *matrix) {
         this->theMatrix = new vector<vector<State<Point *> *> *>;
@@ -95,7 +95,6 @@ public:
     }
 
 
-
     vector<State<Point *> *> *getAllPossibleStates(State<Point *> *state) override {
         vector<State<Point *> *> *possibleStatesVector = new vector<State<Point *> *>;
 //x(i)= rows
@@ -104,23 +103,23 @@ public:
         int y = state->state->getY();
         // left
         if (y != 0) {
-            if (this->theMatrix->at(x)->at(y-1)->value != -1)
-                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y-1));
+            if (this->theMatrix->at(x)->at(y - 1)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y - 1));
         }
         // right
         if (y != this->columns - 1) {
-            if (this->theMatrix->at(x)->at(y+1)->value != -1)
-                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y+1));
+            if (this->theMatrix->at(x)->at(y + 1)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x)->at(y + 1));
         }
         // up
         if (x != 0) {
-            if (this->theMatrix->at(x-1)->at(y)->value != -1)
-                possibleStatesVector->push_back(this->theMatrix->at(x-1)->at(y));
+            if (this->theMatrix->at(x - 1)->at(y)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x - 1)->at(y));
         }
         // down
         if (x != this->rows - 1) {
-            if (this->theMatrix->at(x+1)->at(y)->value != -1)
-                possibleStatesVector->push_back(this->theMatrix->at(x+1)->at(y));
+            if (this->theMatrix->at(x + 1)->at(y)->value != -1)
+                possibleStatesVector->push_back(this->theMatrix->at(x + 1)->at(y));
         }
         return possibleStatesVector;
     }

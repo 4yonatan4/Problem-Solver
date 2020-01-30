@@ -5,16 +5,13 @@
 #include "MyParallelServer.h"
 #include "MatrixSolver.h"
 #include <iostream>
-#include "BestFS.h"
-#include "BFS.h"
-#include "DFS.h"
 #include "Astar.h"
 #include "MyClientHandler.h"
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
 #include <thread>
-#include <mutex>
+
 
 static bool run = true;
 
@@ -103,4 +100,5 @@ int MyParallelServer::openNewClientThread(ClientHandler *newClientHandler, int c
 //    std::mutex mutex;
 //    std::lock_guard<std::mutex> guard(mutex);
     newClientHandler->handleClient(client_socket);
+    return 0;
 }
