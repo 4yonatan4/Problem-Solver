@@ -1,4 +1,4 @@
-# ex4 - Problem Solver
+# Problem Solver
 
 # Description
 
